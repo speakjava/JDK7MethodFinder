@@ -1,4 +1,6 @@
 /**
+ * JDK8 library analyser project
+ * 
  * Copyright © 2014, Oracle and/or its affiliates. All rights reserved.
  */
 package methodfinder;
@@ -41,6 +43,9 @@ public class MethodFinder {
       JarEntry libClass = classes.nextElement();
       String className = libClass.getName();
 
+      /**
+       * Ignore inner classes and convert from a path to a class reference
+       */
       if (className.endsWith(".class")
           && (className.startsWith("java") || className.startsWith("org"))
           && !className.contains("$")) {
@@ -55,7 +60,7 @@ public class MethodFinder {
     try (PrintStream output
         = new PrintStream(new FileOutputStream(outputFile))) {
       /**
-       * Now we take this list and use reflection to look at each class and find
+       * Take the list and use reflection to look at each class and find
        * all the methods that are available and the parameters that they take.
        */
       for (String c : classList) {
